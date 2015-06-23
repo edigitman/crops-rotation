@@ -1,0 +1,13 @@
+rosii BIG morcov telina ceapa praz cartofi ridichi
+cartofi BIG telina varza dovleci fasole mazare rosii
+dovleci BIG telina varza fasole mazare
+fasole BIG morcov telina varza spanac praz mazare ridichi
+praz MEDIUM morcov telina salate ceapa rosii
+ceapa MEDIUM morcov salate praz rosii
+varza MEDIUM telina fasole salate mazare rosii
+telina MEDIUM varza fasole praz mazare rosii
+morcov MEDIUM fasole salate ceapa praz mazare ridichi rosii
+salate SHORT morcov telina varza fasole ceapa praz mazare ridichi
+ridichi SHORT spanac fasole salate mazare rosii
+spanac INGRASAMANT varza fasole ridichi
+mazare INGRASAMANT morcov telina varza fasole salate cartofi ridichi
