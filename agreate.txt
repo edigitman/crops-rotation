@@ -7,7 +7,7 @@ ceapa MEDIUM morcov salate praz rosii
 varza MEDIUM telina fasole salate mazare rosii
 telina MEDIUM varza fasole praz mazare rosii
 morcov MEDIUM fasole salate ceapa praz mazare ridichi rosii
-salate SHORT morcov telina varza fasole ceapa praz mazare ridichi
-ridichi SHORT spanac fasole salate mazare rosii
+salate MEDIUM morcov telina varza fasole ceapa praz mazare ridichi
+ridichi INGRASAMANT spanac fasole salate mazare rosii
 spanac INGRASAMANT varza fasole ridichi
 mazare INGRASAMANT morcov telina varza fasole salate cartofi ridichi

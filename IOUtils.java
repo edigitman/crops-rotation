@@ -16,10 +16,7 @@ public class IOUtils {
 
     public static List<Crop> loadAll(String agreate) throws IOException {
         List<Crop> result = new ArrayList<>();
-
         readFile(agreate, result, true);
-        //readFile(fertile, result, false);
-
         return result;
     }
 

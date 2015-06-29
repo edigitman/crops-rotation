@@ -1,0 +1,46 @@
+tomate BIG craita busuioc galbenele nemtoaica usturoi sparanghel morcov varza-alba telina cucurbitacee porumb ceapa pastarnac patrunjel praz ridichi
+cartofi BIG usturoi telina varza dovleci dovlecel bostan dovleac bob fasole mazare coriandru nemtoaica urzica-moarta galbenele 
+dovleci BIG sparanghel telina varza fasole salata-verde porumb mazare cartof busuioc arpagic coriandru oregano nemtoaica vetrice floarea-soarelui
+fasole BIG vanata morcov telina varza cucurbitacee spanac capsuni salata-verde porumb nap-turcesc praz mazare cartof ridichi
+praz MEDIUM sparanghel morcov telina chimen-dulce capsuni salata-verde ceapa rosii mustar
+ceapa MEDIUM sfecla morcov cucurbitacee capsuni salata-verde pastarnac praz rosii musetel cimbru
+varza BIG telina sfecla cucurbitacee fasole salata-verde mazare rosii cartof marar limba-mielului musetel coriandru menta rozmarin cimbru salvie nemtoaica flori-mirositoare 
+telina MEDIUM varza sfecla cucurbitacee fasole praz mazare rosii beta-vulgaris
+morcov MEDIUM fasole-pitica salata-verde ceapa pastarnac praz mazare ridichi rosii barba-caprei-negru marar coriandru arpagic rozmarin salvie 
+salata-verde MEDIUM sfecla morcov telina varza cucurbitacee bob capsuni fasole nap-turcesc ceapa praz mazare ridichi asmatui 
+ridichi MEDIUM castravete castravecior creson spanac fasole salata-verde mazare rosii asmatui nemtoaica
+spanac INGRASAMANT varza capsuni fasole nap-turcesc ridichi
+mazare MEDIUM sparanghel morcov telina varza cucurbitacee fasole salata-verde porumb nap-turcesc cartofi ridichi cimbru
+usturoi MEDIUM capsuni papadie cartof mazariche trandafiri
+marar MEDIUM morcov cucurbitacee varza salata-verde ceapa
+anghinare MEDIUM varza salata-verde praz
+sparanghel MEDIUM castravete castravecior patrunjel praz mazare tomata 
+vanata BIG fasole 
+busuioc MEDIUM cucurbitacee tomate marar 
+sfecla-rosie MEDIUM telina varza salata-verde ceapa coriandru
+limba-mielului INGRASAMANT varza
+nemtoaica INGRASAMANT conopida dovleac dovlecel cartof ridiche tomata
+asmatui INGRASAMANT salata-verde ridiche 
+gulie MEDIUM sfecla telina salata-verde praz marar limba-mielului musetel coriandru menta rozmarin cimbru salvie nemtoaica flori-mirositoare
+arpagic MEDIUM morcov castravete capsuni mar agris
+castravete BIG sparanghel telina varza fasole salata-verde porumb mazare busuioc arpagic coriandru oregano
+coriandru INGRASAMANT sfecla morcov cucurbitacee varza cartof anason 
+creson MEDIUM varza praz ridiche 
+chimion MEDIUM sfecla morcov cucurbitacee varza cartof anason 
+cucurbitacee BIG sparanghel telina varza fasole salata-verde porumb mazare cartof busuioc arpagic coriandru oregano nemtoaica vetrice foarea-soarelui
+salota MEDIUM morcov telina 
+chimen-dulce MEDIUM telina praz 
+bob-mazariche MEDIUM salata-verde cartof
+capsuni MEDIUM usturoi spanac fasole salata-verde nap-turcesc ceapa praz limba-mielului arpagic cimbrisor galbenele 
+porumb BIG praz cucurbitacee fasole mazare 
+nap-turcesc MEDIUM spanac fasole salata-verde mazare
+ceapa MEDIUM morcov sfecla cucurbitacee capsuni salata-verde pastarnac praz tomata 
+oregano INGRASAMANT cucurbitacee vita-de-vie
+pastarnac MEDIUM morcov ceapa tomate coriandru
+papadie MEDIUM usturoi
+praz MEDIUM sparanghel morcov telina chimen-dulce capsuna salata-verde ceapa tomate mustar
+mazare MEDIUM sparanghel morcov telina varza cucurbitacee fasole salata-verde porumb nap-turcesc cartof ridiche cimbru 
+cimbru MEDIUM fasole ceapa mazare
+galbenele INGRASAMANT capsuna fasole cartof tomate
+craite INGRASAMANT tomate
+floarea-soarelui BIG castravete 

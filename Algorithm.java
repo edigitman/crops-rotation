@@ -2,6 +2,7 @@
 import model.Crop;
 import model.CropCycle;
 import model.CropInOrder;
+import model.CropType;
 
 import java.util.List;
 import java.util.Random;
@@ -11,6 +12,11 @@ import java.util.Stack;
  * Created by edi on 6/22/2015.
  */
 public class Algorithm {
+
+    public Algorithm(int size, List<Crop> crops) {
+        this.size = size;
+        this.crops = crops;
+    }
 
     private List<Crop> crops;
     private int size = 0;
@@ -37,17 +43,25 @@ public class Algorithm {
             if (previous == null) {
                 if (history == null || history.isEmpty()) {
                     Random r = new Random(System.currentTimeMillis());
+                    Crop choose = null;
+                    while (choose == null) {
+                        choose = crops.get(r.nextInt(crops.size()));
+                        if (!CropType.BIG.equals(choose.getType())) {
+                            choose = null;
+                        }
+                    }
+
                     CropInOrder cin = new CropInOrder();
-                    cin.setCrop(crops.get(r.nextInt(crops.size())));
+                    cin.setCrop(choose);
                     cin.setPosition(0);
                     current.push(cin);
                 } else {
                     CropCycle cc = history.get(history.size() - 1);
                     Crop prevCrop = cc.getCropsInOrder().get(0).getCrop();
-                    for (Crop c : crops) {
-                        if (prevCrop.getType().getNext().equals(c.getType())) {
+                    for (Crop crop : crops) {
+                        if (checkSuccessionTypeUniqeness(prevCrop, crop)) {
                             CropInOrder cin = new CropInOrder();
-                            cin.setCrop(c);
+                            cin.setCrop(crop);
                             cin.setPosition(0);
                             current.push(cin);
                             break;
@@ -88,17 +102,26 @@ public class Algorithm {
         if (history != null && !history.isEmpty()) {
             CropCycle cc = history.get(history.size() - 1);
             Crop prevCrop = cc.getCropsInOrder().get(newPosition).getCrop();
-            if (prevCrop.getType().getNext().equals(crop.getType()) && prevCrop.getFavorable().contains(crop)) {
-                //System.out.println("previous: " + prevCrop + ", next: " + prevCrop.getType().getNext()+ ", actual " + crop);
+            if (checkSuccessionTypeUniqeness(prevCrop, crop))
                 return true;
-            }
         } else {
-            CropInOrder prev = current.peek();
-            if (prev.getCrop().getType().getNext().equals(crop.getType())) {
+            if (checkSuccessionTypeUniqeness(current.peek().getCrop(), crop))
                 return true;
-            }
         }
         return false;
+    }
+
+    private boolean checkSuccessionTypeUniqeness(Crop previous, Crop current) {
+        if (!previous.getType().getNext().contains(current.getType()) ||
+                !previous.getFavorable().contains(current)) {
+            return false;
+        }
+        for (CropInOrder cio : this.current) {
+            if (cio.getCrop().equals(current)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean isSolution() {
