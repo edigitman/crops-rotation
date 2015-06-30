@@ -19,6 +19,24 @@ public class Main {
     public Main(String[] args) throws IOException {
 
         crops = IOUtils.loadAll(args[0]);
+
+        fixFavorableSimetry();
+        List<Crop> errorCrops = validate();
+        if (!errorCrops.isEmpty()) {
+            System.out.print("\nPLANTE NEDEFINITE:\n");
+            System.out.print("\nAceste plante trebuie sa aibe tip si cel putin o planta de asociere:\n");
+            for (Crop crop : errorCrops) {
+                System.out.println(crop);
+            }
+
+            //remove error crops
+            for (Crop c : crops) {
+                c.getFavorable().removeAll(errorCrops);
+            }
+            crops.removeAll(errorCrops);
+        }
+
+
         size = Integer.parseInt(args[1]);
         cycles = Integer.parseInt(args[2]);
         maxAttempts = size * 2;
@@ -34,33 +52,68 @@ public class Main {
 //            System.out.println(c);
 //        }
         List<CropCycle> history = new ArrayList<>();
-       // try {
-            //primul ciclu de cultivare
-            CropCycle cc1 = a.solve(null);
+        // try {
+        //primul ciclu de cultivare
+        CropCycle cc1 = a.solve(null);
+        history.add(cc1);
+
+        for (int i = 0; i < 1000 && history.size() < cycles; i++) {
+            cc1 = a.solve(history);
             history.add(cc1);
+        }
 
-            for (int i = 0; i < 1000 && history.size() < cycles; i++) {
-                cc1 = a.solve(history);
-                history.add(cc1);
+        for (CropCycle cc : history) {
+            System.out.println("\n---- An cultivare: " + (cc.getIndex() + 1));
+            double distance = 0;
+            boolean space = true;
+            for (CropInOrder cio : cc.getCropsInOrder()) {
+                System.out.println(distance + (space ? " " : "")
+                        + ": " + cio.getCrop().getName() + ", tip: " + cio.getCrop().getType());
+                distance += 0.25;
+                space = !space;
             }
-
-            for (CropCycle cc : history) {
-                System.out.println("\n---- An cultivare: " + (cc.getIndex() + 1));
-                double distance = 0;
-                boolean space = true;
-                for (CropInOrder cio : cc.getCropsInOrder()) {
-                    System.out.println(distance + (space ? " " : "")
-                            + ": " + cio.getCrop().getName() + ", tip: " + cio.getCrop().getType());
-                    distance += 0.25;
-                    space = !space;
-                }
-            }
+        }
 
 //        } catch (NullPointerException e) {
 //            System.out.print("\n\tImposibilitate gasire solutie, micsorati numarul de randuri de legume sau adaugati legume in index.\n");
 //            System.out.print("\n\tAcum sunt " + crops.size() + " legume in index si se cer " + size + " randuri de legume");
 //            System.exit(-1);
 //        }
+    }
+
+    /**
+     * Validates that all the crops have type and favorable list
+     *
+     * @return list of crops that don;t have type
+     */
+    private List<Crop> validate() {
+        List<Crop> result = new ArrayList<>();
+        for (Crop crop : crops) {
+            if (crop.getType() == null || crop.getFavorable().isEmpty()) {
+                result.add(crop);
+            } else {
+                for (Crop c : crop.getFavorable()) {
+                    if (!c.getFavorable().contains(crop)) {
+                        result.add(crop);
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Adds simetry in the crops list
+     */
+    private void fixFavorableSimetry() {
+        for (Crop crop : crops) {
+            for (Crop c : crop.getFavorable()) {
+                if (!c.getFavorable().contains(crop)) {
+                    c.addFavorable(crop);
+                }
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
