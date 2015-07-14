@@ -12,7 +12,6 @@ public class Crop {
     private Long id;
     private String name;
     private List<Crop> favorable;
-    private List<Crop> unfavorable;
     private CropType type;
     private CropSeason season;
     private Integer cycles;
@@ -23,7 +22,6 @@ public class Crop {
     public Crop(String name) {
         this.name = name;
         favorable = new LinkedList<>();
-        unfavorable = new LinkedList<>();
     }
 
     public Long getId() {
@@ -50,20 +48,9 @@ public class Crop {
         this.favorable = favorable;
     }
 
-    public List<Crop> getUnfavorable() {
-        return unfavorable;
-    }
-
-    public void setUnfavorable(LinkedList<Crop> unfavorable) {
-        this.unfavorable = unfavorable;
-    }
 
     public void addFavorable(Crop crop) {
         this.favorable.add(crop);
-    }
-
-    public void addFertile(Crop crop) {
-        this.unfavorable.add(crop);
     }
 
     public CropType getType() {
@@ -117,18 +104,7 @@ public class Crop {
             if (sb.charAt(sb.length() - 1) == ',')
                 sb.deleteCharAt(sb.length() - 1);
         }
-
-        if (unfavorable == null) {
-            sb.append("]");
-        } else {
-            sb.append("], unfavorable = [");
-            for (Crop c : unfavorable) {
-                sb.append(c.name).append(",");
-            }
-            if (sb.charAt(sb.length() - 1) == ',')
-                sb.deleteCharAt(sb.length() - 1);
-            sb.append("] }");
-        }
+        sb.append("]");
 
         return sb.toString();
     }

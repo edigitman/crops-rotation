@@ -1,0 +1,7 @@
+fisier=a.txt
+randuri=7
+ani=4
+initializat=0
+initializat.1.prima.planta=tomate
+initializat.2.primul.rand=cucurbitacee,coriandru,gulie,limba-mielului,varza,nemtoaica,ridichi
+afiseaza.plante=0

@@ -23,6 +23,9 @@ public class IOUtils {
     private static void readFile(String file, List<Crop> list, boolean agreate) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8);
         for (String line : lines) {
+            if (line.trim().isEmpty()) {
+                continue;
+            }
             String[] words = line.split(" ");
             Crop cultura = addToList(words[0], list);
 

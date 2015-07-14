@@ -3,22 +3,42 @@ import model.Crop;
 import model.CropCycle;
 import model.CropInOrder;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 
 public class Main {
 
-    private int attempts;
     private final List<Crop> crops;
     private final int size;
     private final int cycles;
     private final Algorithm a;
-    private final int maxAttempts;
+    private Properties prop = new Properties();
 
-    public Main(String[] args) throws IOException {
+    public Main() throws IOException {
 
-        crops = IOUtils.loadAll(args[0]);
+        InputStream input = null;
+        try {
+            input = new FileInputStream("config.txt");
+            // load a properties file
+            prop.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        crops = IOUtils.loadAll(prop.getProperty("fisier"));
 
         fixFavorableSimetry();
         List<Crop> errorCrops = validate();
@@ -36,32 +56,67 @@ public class Main {
             crops.removeAll(errorCrops);
         }
 
-
-        size = Integer.parseInt(args[1]);
-        cycles = Integer.parseInt(args[2]);
-        maxAttempts = size * 2;
+        size = Integer.parseInt(prop.getProperty("randuri"));
+        cycles = Integer.parseInt(prop.getProperty("ani"));
         a = new Algorithm(size - 1, crops);
-        System.out.print("\n\tREZULTATE\n");
-        execute();
+
+        printBefore();
+
+        List<CropCycle> history = execute();
+
+        print(history);
     }
 
-    public void execute() {
-        attempts++;
-//        System.out.println("CULTURILE CITITE DIN FISIERELE DE INTRARE");
-//        for (Crop c : crops) {
-//            System.out.println(c);
-//        }
+    public List<CropCycle> execute() {
+
         List<CropCycle> history = new ArrayList<>();
         // try {
         //primul ciclu de cultivare
-        CropCycle cc1 = a.solve(null);
-        history.add(cc1);
-
-        for (int i = 0; i < 1000 && history.size() < cycles; i++) {
-            cc1 = a.solve(history);
-            history.add(cc1);
+        int init = Integer.parseInt(prop.getProperty("initializat", "0"));
+        switch (init) {
+            case 1:
+                history.add(a.solve(null, loadByName(prop.getProperty("initializat.1.prima.planta", ""))));
+                break;
+            case 2:
+                CropCycle cropCycle = loadFirstLine(prop.getProperty("initializat.2.primul.rand", ""));
+                if (cropCycle != null) {
+                    history.add(cropCycle);
+                } else {
+                    history.add(a.solve(null));
+                }
+                break;
+            default:
+                history.add(a.solve(null));
         }
 
+
+        for (int i = 0; i < 1000 && history.size() < cycles; i++) {
+            history.add(a.solve(history));
+        }
+
+        return history;
+
+//        } catch (NullPointerException e) {
+//            System.out.print("\n\tImposibilitate gasire solutie, micsorati numarul de randuri de legume sau adaugati legume in index.\n");
+//            System.out.print("\n\tAcum sunt " + crops.size() + " legume in index si se cer " + size + " randuri de legume");
+//            System.exit(-1);
+//        }
+    }
+
+    private void printBefore() {
+        String print = prop.getProperty("afiseaza.plante", "0");
+
+        if ("1".equals(print)) {
+            System.out.println("\n\tCULTURILE FOLOSITE PENTRU A GENERA SOLUTII\n");
+            for (Crop c : crops) {
+                System.out.println(c);
+            }
+        }
+    }
+
+
+    private void print(List<CropCycle> history) {
+        System.out.print("\n\tREZULTATE\n");
         for (CropCycle cc : history) {
             System.out.println("\n---- An cultivare: " + (cc.getIndex() + 1));
             double distance = 0;
@@ -73,13 +128,8 @@ public class Main {
                 space = !space;
             }
         }
-
-//        } catch (NullPointerException e) {
-//            System.out.print("\n\tImposibilitate gasire solutie, micsorati numarul de randuri de legume sau adaugati legume in index.\n");
-//            System.out.print("\n\tAcum sunt " + crops.size() + " legume in index si se cer " + size + " randuri de legume");
-//            System.exit(-1);
-//        }
     }
+
 
     /**
      * Validates that all the crops have type and favorable list
@@ -116,8 +166,42 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    private CropCycle loadFirstLine(String property) {
+        if (property == null || property.isEmpty()) {
+            return null;
+        }
+        CropCycle result = new CropCycle();
+        String[] cropsNames = property.split(",");
 
-        new Main(args);
+        int position = 0;
+        CropInOrder previous = null;
+        for (String name : cropsNames) {
+            Crop crop = loadByName(name);
+            CropInOrder cin = new CropInOrder();
+            cin.setCrop(crop);
+            cin.setPosition(position);
+            cin.setBefore(previous);
+            result.addCultura(cin);
+
+            previous = cin;
+            position++;
+        }
+        return result;
+    }
+
+    private Crop loadByName(String name) {
+        if (name != null && !name.isEmpty()) {
+            for (Crop crop : crops) {
+                if (crop.getName().equals(name)) {
+                    return crop;
+                }
+            }
+        }
+        Random r = new Random();
+        return crops.get(r.nextInt(crops.size()));
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Main();
     }
 }
